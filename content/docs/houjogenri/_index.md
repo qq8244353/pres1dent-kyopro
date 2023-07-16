@@ -20,7 +20,7 @@ type: docs
     &= |\Omega| + \displaystyle\sum_{k=1}^n(-1)^{k} \displaystyle\sum_{1\leq i_1 < i_2 < \cdots < i_k \leq n} |\overline{A_{i_1}} \cap \overline{A_{i_2}} \cap \cdots \cap \overline{A_{i_k}}| \\
 \end{array} \\
 {{< /katex >}}
-dp配列を以下のように定義すると.  
+dp配列を以下のように定義すると,
 ({{< katex >}} k = 0{{< /katex >}} のとき,条件がないので全体集合になるのは直感的に正しい.)  
 {{< katex display >}}
 dp[k] = \Biggl\{ \begin{array}{cl}
