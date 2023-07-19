@@ -1,0 +1,42 @@
+<!doctype html><html lang=ja dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="ユークリッドの互除法 # 概要 # \[x = y \times d + m と表せるとき, gcd(x, y) = gcd(y, m)\] 例題 (ユークリッドの互除法で和を分解) # ABC254 F - Rectangle GCD
+\( (i,j) \) の値が \(A_i + B_j\) であるとき, \(1 \leq h_1, h_2, \leq H, 1 \leq w_1, w_2 \leq W \) で囲われる短形領域のgcdを求めよ.
+簡単のために \(h_1 = 1, h_2 = H, w_1 = 1, w_2 = W\) とする.
+求めるものは, \[gcd\Biggr( \begin{array}{c} gcd(A_1 + B_1, A_1 + B_2, \cdots, A_1 + B_W), \\ gcd( A_2 + B_1, A_2 + B_2, \cdots, A_2 + B_W), \\ \vdots \\ gcd( A_H + B_1, A_H + B_2, \cdots, A_H + B_W) \\ \end{array} \Biggr) \quad (1)\] \( A_i + B_j = (A_i + B_{j + 1}) \times 1 + B_j - B_{j+1} \) なのでユークリッドの互除法より,"><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content="ユークリッドの互除法"><meta property="og:description" content><meta property="og:type" content="website"><meta property="og:url" content="https://qq8244353.github.io/pres1dent-kyopro/docs/euclidgojoho/"><title>ユークリッドの互除法 | 競技プログラミング</title><link rel=manifest href=/pres1dent-kyopro/manifest.json><link rel=icon href=/pres1dent-kyopro/favicon.png type=image/x-icon><link rel=stylesheet href=/pres1dent-kyopro/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz+OQteg=" crossorigin=anonymous><script defer src=/pres1dent-kyopro/flexsearch.min.js></script>
+<script defer src=/pres1dent-kyopro/en.search.min.0c453054fe4e3e3f8dc61438a2822353787bae990bb53790cb33f44db54e75fe.js integrity="sha256-DEUwVP5OPj+NxhQ4ooIjU3h7rpkLtTeQyzP0TbVOdf4=" crossorigin=anonymous></script>
+<link rel=alternate type=application/rss+xml href=https://qq8244353.github.io/pres1dent-kyopro/docs/euclidgojoho/index.xml title=競技プログラミング></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/pres1dent-kyopro/><span>競技プログラミング</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/pres1dent-kyopro/docs/euclidgojoho/ class=active>ユークリッドの互除法</a><ul></ul></li><li><a href=/pres1dent-kyopro/docs/nibuntansaku/>二分探索</a><ul></ul></li><li><a href=/pres1dent-kyopro/docs/syazojunisou/>写像12相</a><ul></ul></li><li><a href=/pres1dent-kyopro/docs/houjogenri/>包除原理</a><ul></ul></li><li><a href=/pres1dent-kyopro/docs/fps/>形式的冪級数</a><ul></ul></li><li><a href=/pres1dent-kyopro/docs/chochoten/>超頂点</a><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/pres1dent-kyopro/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>ユークリッドの互除法</strong>
+<label for=toc-control><img src=/pres1dent-kyopro/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#概要>概要</a></li><li><a href=#例題-ユークリッドの互除法で和を分解>例題 (ユークリッドの互除法で和を分解)</a></li></ul></nav></aside></header><article class=markdown><h1 id=ユークリッドの互除法>ユークリッドの互除法
+<a class=anchor href=#%e3%83%a6%e3%83%bc%e3%82%af%e3%83%aa%e3%83%83%e3%83%89%e3%81%ae%e4%ba%92%e9%99%a4%e6%b3%95>#</a></h1><h2 id=概要>概要
+<a class=anchor href=#%e6%a6%82%e8%a6%81>#</a></h2><link rel=stylesheet href=/pres1dent-kyopro/katex/katex.min.css><script defer src=/pres1dent-kyopro/katex/katex.min.js></script>
+<script defer src=/pres1dent-kyopro/katex/auto-render.min.js onload=renderMathInElement(document.body)></script><span>
+\[x = y \times d + m と表せるとき, gcd(x, y) = gcd(y, m)\]</span><h2 id=例題-ユークリッドの互除法で和を分解>例題 (ユークリッドの互除法で和を分解)
+<a class=anchor href=#%e4%be%8b%e9%a1%8c-%e3%83%a6%e3%83%bc%e3%82%af%e3%83%aa%e3%83%83%e3%83%89%e3%81%ae%e4%ba%92%e9%99%a4%e6%b3%95%e3%81%a7%e5%92%8c%e3%82%92%e5%88%86%e8%a7%a3>#</a></h2><p><a href=https://atcoder.jp/contests/abc254/tasks/abc254_f>ABC254 F - Rectangle GCD</a><br><span>\( (i,j) \)</span>
+の値が<span>
+\(A_i + B_j\)</span>
+であるとき,
+<span>\(1 \leq h_1, h_2, \leq H, 1 \leq w_1, w_2 \leq W \)</span>
+で囲われる短形領域のgcdを求めよ.<br>簡単のために<span>
+\(h_1 = 1, h_2 = H, w_1 = 1, w_2 = W\)</span>
+とする.<br>求めるものは,
+<span>\[gcd\Biggr(
+\begin{array}{c}
+gcd(A_1 + B_1, A_1 + B_2, \cdots, A_1 + B_W), \\
+gcd( A_2 + B_1, A_2 + B_2, \cdots, A_2 + B_W), \\
+\vdots \\
+gcd( A_H + B_1, A_H + B_2, \cdots, A_H + B_W) \\
+\end{array}
+\Biggr) \quad (1)\]</span>
+<span>\( A_i + B_j = (A_i + B_{j + 1}) \times 1 + B_j - B_{j+1} \)</span><br>なのでユークリッドの互除法より,<br><span>\( gcd(A_i + B_j, A_i + B_{j + 1}) = gcd(B_i - B_{j + 1}, A_i + B_{j + 1}) \)</span><br>よって,</p><p><span>\[\begin{array}{rl}
+gcd(A_i + B_1, A_i + B_2, \cdots, A_i + B_W) & = gcd(B_1 - B_2, A_i + B_2, \cdots, A_i + B_W) \\
+& \vdots \\
+& = gcd(B_1 - B_2, B_2 - B_3, \cdots, A_i + B_W) \\
+\end{array}\]</span>
+同様にして,<br><span>\[\begin{array}{rl}
+gcd(A_1 + B_W, A_2 + B_W, \cdots, A_H + B_W) & = gcd(A_1 - A_2, A_2 + B_W, \cdots, A_H + B_W) \\
+& \vdots \\
+& = gcd(A_1 - A_2, A_2 - A_3, \cdots, A_H + B_W) \\
+\end{array}\]</span>
+なので,
+<span>\[(1) = gcd(A_1 - A_2, \cdots, A_{H-1} - A_H, B_1 - B_2, \cdots, B_{W-1} - B_W, A_H + B_W)\]</span>
+これはAとBの区間和なので, セグ木に乗せれば各クエリO(log(H) + log(W) + 1)で解ける</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#概要>概要</a></li><li><a href=#例題-ユークリッドの互除法で和を分解>例題 (ユークリッドの互除法で和を分解)</a></li></ul></nav></div></aside></main></body></html>
