@@ -10,3 +10,5 @@ type: docs
 {{< katex >}}i, j(i < j){{< /katex >}}番目に対して操作するためには{{< katex >}}(j - i) = 0 (mod 2){{< /katex >}}かつ,
 {{< katex >}}[i + 1, j - 1]{{< /katex >}}が削除可能であることが必要.
 
+## 問題例
+- [ ABC217 F - Make Pair ](https://atcoder.jp/contests/abc217/tasks/abc217_f)
