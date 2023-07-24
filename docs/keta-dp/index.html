@@ -1,0 +1,102 @@
+<!doctype html><html lang=ja dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="桁DP # 桁DPはMLEやTLEを起こしがちなので気を付ける.
+雛形 # int main() { string s; cin >> s; int n = s.size(); // 問題固有な特徴量についての処理を記載する. // dp: 上記の量をキーとするようなdp配列の宣言を記載. // dpではs未満になることが確定したものの情報をもつ. // now: sと一致しているものの状態の宣言を記載. for (int i = 0; i < n; i++) { // ndp: ndpの宣言を記載. int d = s[i] - '0'; // 特徴量について遷移する for (int j = 0; j < dp.size(); j++) { for (int k = 0; k <= 9; k++) { // small to smallの遷移."><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content="桁DP"><meta property="og:description" content><meta property="og:type" content="website"><meta property="og:url" content="https://qq8244353.github.io/pres1dent-kyopro/docs/keta-dp/"><title>桁DP | 競技プログラミング</title><link rel=manifest href=/pres1dent-kyopro/manifest.json><link rel=icon href=/pres1dent-kyopro/favicon.png type=image/x-icon><link rel=stylesheet href=/pres1dent-kyopro/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz+OQteg=" crossorigin=anonymous><script defer src=/pres1dent-kyopro/flexsearch.min.js></script>
+<script defer src=/pres1dent-kyopro/en.search.min.3572c7177f9014e79df23698164e99b7e5f580bf117203ce71a15bfa14dec786.js integrity="sha256-NXLHF3+QFOed8jaYFk6Zt+X1gL8RcgPOcaFb+hTex4Y=" crossorigin=anonymous></script>
+<link rel=alternate type=application/rss+xml href=https://qq8244353.github.io/pres1dent-kyopro/docs/keta-dp/index.xml title=競技プログラミング></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/pres1dent-kyopro/><span>競技プログラミング</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/pres1dent-kyopro/docs/kaisetuhoso/>Kaisetuhoso</a><ul></ul></li><li><a href=/pres1dent-kyopro/docs/euclidgojoho/>ユークリッドの互除法</a><ul></ul></li><li><a href=/pres1dent-kyopro/docs/nibuntansaku/>二分探索</a><ul></ul></li><li><a href=/pres1dent-kyopro/docs/syazojunisou/>写像12相</a><ul></ul></li><li><a href=/pres1dent-kyopro/docs/houjogenri/>包除原理</a><ul></ul></li><li><a href=/pres1dent-kyopro/docs/kukan-dp/>区間DP</a><ul></ul></li><li><a href=/pres1dent-kyopro/docs/fps/>形式的冪級数</a><ul></ul></li><li><a href=/pres1dent-kyopro/docs/keta-dp/ class=active>桁DP</a><ul></ul></li><li><a href=/pres1dent-kyopro/docs/chochoten/>超頂点</a><ul></ul></li><li><a href=/pres1dent-kyopro/docs/bubunretudp/>部分列DP</a><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/pres1dent-kyopro/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>桁DP</strong>
+<label for=toc-control><img src=/pres1dent-kyopro/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#雛形>雛形</a></li><li><a href=#例題>例題</a><ul><li><a href=#問題>問題</a></li><li><a href=#解法>解法</a></li><li><a href=#提出>提出</a></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=桁dp>桁DP
+<a class=anchor href=#%e6%a1%81dp>#</a></h1><p>桁DPはMLEやTLEを起こしがちなので気を付ける.</p><h2 id=雛形>雛形
+<a class=anchor href=#%e9%9b%9b%e5%bd%a2>#</a></h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    string s; cin <span style=color:#f92672>&gt;&gt;</span> s;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> n <span style=color:#f92672>=</span> s.size();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 問題固有な特徴量についての処理を記載する.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>// dp: 上記の量をキーとするようなdp配列の宣言を記載.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>//     dpではs未満になることが確定したものの情報をもつ.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>// now: sと一致しているものの状態の宣言を記載.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; i <span style=color:#f92672>&lt;</span> n; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// ndp: ndpの宣言を記載.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>int</span> d <span style=color:#f92672>=</span> s[i] <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;0&#39;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 特徴量について遷移する
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> j <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; j <span style=color:#f92672>&lt;</span> dp.size(); j<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> k <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; k <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>9</span>; k<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// small to smallの遷移. dp -&gt; ndp
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// same to smallの遷移. now -&gt; ndp
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> k <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; k <span style=color:#f92672>&lt;</span> d; k<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 最初に0をつけるのは禁止.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>            <span style=color:#66d9ef>if</span> (i <span style=color:#f92672>|</span> k) {
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// ndp += 1 (sと一致する数は一通り)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// same to sameの遷移. now -&gt; now
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// leading-zeroの処理
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>if</span> (i) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> k <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; k <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>9</span>; k<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// ndp += 1
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        swap(dp, ndp);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// nowを答えに追加する場合があることに注意する.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=例題>例題
+<a class=anchor href=#%e4%be%8b%e9%a1%8c>#</a></h2><h3 id=問題>問題
+<a class=anchor href=#%e5%95%8f%e9%a1%8c>#</a></h3><p>1 以上 K 以下の整数のうち、十進表記における各桁の数字の総和が D の倍数であるようなものは何個でしょうか？ 10^9 +7 で割った余りを求めてください。</p><h3 id=解法>解法
+<a class=anchor href=#%e8%a7%a3%e6%b3%95>#</a></h3><p>各桁の和のmod Dを持って桁DPする.</p><h3 id=提出>提出
+<a class=anchor href=#%e6%8f%90%e5%87%ba>#</a></h3><p><a href=https://atcoder.jp/contests/dp/submissions/43926138>https://atcoder.jp/contests/dp/submissions/43926138</a></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;iostream&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;vector&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;atcoder/all&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> std;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> atcoder;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>using</span> mint <span style=color:#f92672>=</span> modint1000000007;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    ios<span style=color:#f92672>::</span>sync_with_stdio(false);
+</span></span><span style=display:flex><span>    std<span style=color:#f92672>::</span>cin.tie(<span style=color:#66d9ef>nullptr</span>);
+</span></span><span style=display:flex><span>    string s; cin <span style=color:#f92672>&gt;&gt;</span> s;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> n <span style=color:#f92672>=</span> s.size();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 問題固有な特徴量についての処理を記載する.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>int</span> D; cin <span style=color:#f92672>&gt;&gt;</span> D;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// dp: 上記の量をキーとするようなdp配列の宣言を記載.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>//     dpではs未満になることが確定したものの情報をもつ.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    vector<span style=color:#f92672>&lt;</span>mint<span style=color:#f92672>&gt;</span> dp(D);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// now: sと一致しているものの状態の宣言を記載.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>int</span> now <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; i <span style=color:#f92672>&lt;</span> n; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// ndp: ndpの宣言を記載.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        vector<span style=color:#f92672>&lt;</span>mint<span style=color:#f92672>&gt;</span> ndp(D);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> d <span style=color:#f92672>=</span> s[i] <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;0&#39;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 特徴量について遷移する
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> j <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; j <span style=color:#f92672>&lt;</span> dp.size(); j<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> k <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; k <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>9</span>; k<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// small to smallの遷移. dp -&gt; ndp
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>                ndp[(j <span style=color:#f92672>+</span> k) <span style=color:#f92672>%</span> D] <span style=color:#f92672>+=</span> dp[j];
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// same to smallの遷移. now -&gt; ndp
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> k <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; k <span style=color:#f92672>&lt;</span> d; k<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 最初に0をつけるのは禁止.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>            <span style=color:#66d9ef>if</span> (i <span style=color:#f92672>|</span> k) {
+</span></span><span style=display:flex><span>                ndp[(now <span style=color:#f92672>+</span> k) <span style=color:#f92672>%</span> D] <span style=color:#f92672>+=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// same to sameの遷移. now -&gt; now
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        now <span style=color:#f92672>=</span> (now <span style=color:#f92672>+</span> d) <span style=color:#f92672>%</span> D;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// leading-zeroの処理
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>if</span> (i) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> k <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; k <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>9</span>; k<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// ndp += 1
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>                ndp[k <span style=color:#f92672>%</span> D] <span style=color:#f92672>+=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        swap(dp, ndp);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// nowを答えに追加する場合があることに注意する.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>now) { dp[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>++</span>; }
+</span></span><span style=display:flex><span>    cout <span style=color:#f92672>&lt;&lt;</span> (dp[<span style=color:#ae81ff>0</span>]).val() <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#雛形>雛形</a></li><li><a href=#例題>例題</a><ul><li><a href=#問題>問題</a></li><li><a href=#解法>解法</a></li><li><a href=#提出>提出</a></li></ul></li></ul></nav></div></aside></main></body></html>
