@@ -6,6 +6,8 @@ type: docs
 ぱっと見O(N^3)のDPが実はO(N^2)というやつ.
 # 記事等
 - https://snuke.hatenablog.com/entry/2019/01/15/211812
+# 問題例
+https://atcoder.jp/contests/abc287/tasks/abc287_f
 # コード
 ```
 int main() {
