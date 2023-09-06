@@ -6,9 +6,31 @@ type: docs
 ```haskell
 getInt :: IO Int
 getInt = fst . fromJust . BS.readInt <$> BS.getLine
-
 getInts :: IO [Int]
 getInts = unfoldr (BS.readInt . BS.dropWhile isSpace) <$> BS.getLine
 ```
 # 重複除去
 `ord`はO(N^2). 順序が定義されている場合, O(nlogn)の`nubOrd`を利用できる.
+# Not Equal
+/= (equal は ==)
+# <$> と <*>
+<$> は fmap の略. <*> は <$> の引数が複数ある時に繋げるために使う.
+```haskell
+ghci> (*2) <$> [1..3]
+[2,4,6]
+ghci> (*) <$> [1 .. 3] <*> [11 .. 13]
+[11,12,13,22,24,26,33,36,39]
+```
+2個目の挙動はいまいちよくわかってない
+# listの結合
+```haskell
+ghci> [1..2] ++ [3..4]
+[1,2,3,4]
+```
+# flatten
+```haskell
+ghci> concat [[1,2],[3,4]]
+[1,2,3,4]
+```
+
+
