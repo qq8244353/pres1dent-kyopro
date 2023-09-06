@@ -43,5 +43,7 @@ input2 <- replicateM n do
     // dosomething
     return (something)
 ```
-
+# pred
+pred n で n - 1になる.
+Enumについて使える
 
