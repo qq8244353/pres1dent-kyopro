@@ -34,6 +34,7 @@ ghci> concat [[1,2],[3,4]]
 ```
 # replicateM n
 `replicateM n` でn回アクションをおこなって、結果を配列に入れて返す.
+(Mはモナドのこと)
 例:
 ```haskell
 input1 <- replicateM n getInts
