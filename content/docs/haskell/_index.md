@@ -32,5 +32,15 @@ ghci> [1..2] ++ [3..4]
 ghci> concat [[1,2],[3,4]]
 [1,2,3,4]
 ```
+# replicateM n
+`replicateM n` でn回アクションをおこなって、結果を配列に入れて返す.
+例:
+```haskell
+input1 <- replicateM n getInts
+input2 <- replicateM n do
+    [u, v] <- getInts
+    // dosomething
+    return (something)
+```
 
 
