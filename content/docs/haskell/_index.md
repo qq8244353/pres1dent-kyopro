@@ -46,4 +46,10 @@ input2 <- replicateM n do
 # pred
 pred n で n - 1になる.
 Enumについて使える
-
+# Blog集
+- Haskell超入門集
+    - https://qiita.com/7shi/items/145f1234f8ec2af923ef
+- List操作まとめ
+    - https://qiita.com/HelloRusk/items/8cee82377587058ff0c3
+- Bit演算Doc
+    - https://hackage.haskell.org/package/base-4.18.0.0/docs/Data-Bits.html
